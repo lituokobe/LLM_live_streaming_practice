@@ -5,3 +5,5 @@
 - In Class1_Demo4, we generated some content based on the input message.
 - In Class1_Demo5, we directly use request to get chat messages with OpenAI API.
 - In Class2_Demo1, we used LangChain to build a simple translation app.
+- In Class3_Demo1, we conducted a conversation with history.
+- In Class3_Demo2, we practiced several common cases for chain building with LangChain.

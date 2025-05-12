@@ -7,3 +7,13 @@
 - In Class2_Demo1, we used LangChain to build a simple translation app.
 - In Class3_Demo1, we conducted a conversation with history.
 - In Class3_Demo2, we practiced several common cases for chain building with LangChain.
+- In Class4_Demo1, we used AI to generate a novel and let it review and score it.
+- In Class4_Demo2, we used LangChain to build a simple restaurant recommendation app.
+- In Class4_Demo3, we created a chatbot with different topic focuses by using router.
+- In Class4_Demo4, we leveraged the search tool Tavily to complete a chatbot.
+- In Class5_Demo1, we built a small agent that uses match tool and academic research tool.
+- In Class5_Demo2, we built customized tools with 2 methods.
+- In Class5_Demo3, we built an agent with a customized tool.
+- In Class5_Demo4, we created a simple chatbot with LangGraph.
+- In Class6_Demo1, We created a chatbot with tool of search with LangGraph.
+- In Class6_Demo2,

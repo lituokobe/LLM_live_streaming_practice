@@ -1,49 +1,40 @@
-from langchain_community.chat_message_histories import SQLChatMessageHistory
-from langchain_core.output_parsers import StrOutputParser
-from langchain_core.prompts import ChatPromptTemplate, MessagesPlaceholder
-from langchain_core.runnables import RunnableWithMessageHistory
+from langchain import hub
+from langchain.agents import initialize_agent, AgentType, create_structured_chat_agent, AgentExecutor
+from langchain_community.agent_toolkits.load_tools import load_tools
+from langchain_core.tools import tool, StructuredTool
 from langchain_openai import ChatOpenAI
+from pydantic import BaseModel, Field
 
-llm_openai = ChatOpenAI(
+llm = ChatOpenAI(
     temperature=1.0,
     model='gpt-4.1-nano-2025-04-14')
 
-# 上下文交互: 保存历史记录(存在哪里？)
 
-parser = StrOutputParser()
-
-prompt = ChatPromptTemplate.from_messages([
-    ('system', '你是一个幽默的聊天机器人'),
-    MessagesPlaceholder(variable_name='history'),
-    ('human', '{input}')
-])
-
-# LCEL 表达式
-chain = prompt | llm_openai | parser
+class ArgsInput(BaseModel):
+    a: str = Field(description='第一个字符串')
+    b: str = Field(description='第二个字符串')
 
 
-# 把聊天记录保存本地数据库中
-def get_session_history(sid):
-    """
-    根据会话的ID，读取和保存历史记录. 必须要BaseChatMessageHistory
-    :param sid:
-    :return:
-    """
-    return SQLChatMessageHistory(sid, 'sqlite:///history.db')
+def count_str(a: str, b: str) -> int:
+    """分别计算两个字符串的长度，并且累加计算长度的和"""
+    return len(a) + len(b)
 
-
-runnable = RunnableWithMessageHistory(
-    chain,
-    get_session_history,
-    input_messages_key='input',
-    history_messages_key='history'
+# 2、结构化 得到一个工具
+len_add = StructuredTool.from_function(
+    func=count_str,  # 工具的函数
+    name='my_Calculator',  # 一定是唯一的
+    description='计算字符串长度的累加和',
+    args_schema=ArgsInput,
+    return_direct=False
 )
 
-# 调用
-res1 = runnable.invoke({'input': '中国一共有哪些直辖市？'}, config={'configurable': {'session_id': 'laoX002'}})
 
-print(res1)
-print('--' * 30)
+tools = [len_add]
+prompt = hub.pull('hwchase17/structured-chat-agent')
+agent = create_structured_chat_agent(llm, tools, prompt)
 
-res2 = runnable.invoke({'input': '这些城市中，哪个最大？'}, config={'configurable': {'session_id': 'laoX002'}})
-print(res2)
+# 初始化：agent的执行器
+agent_executor = AgentExecutor(agent=agent, tools=tools, verbose=True, handle_parsing_errors=True)
+
+resp = agent_executor.invoke({'input': '`爱国者导弹拦截`的字符串长度加上`abc`字符串的长度是多少？ langsmith是什么？'})
+print(resp)

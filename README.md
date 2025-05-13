@@ -15,5 +15,7 @@
 - In Class5_Demo2, we built customized tools with 2 methods.
 - In Class5_Demo3, we built an agent with a customized tool.
 - In Class5_Demo4, we created a simple chatbot with LangGraph.
-- In Class6_Demo1, We created a chatbot with tool of search with LangGraph.
-- In Class6_Demo2,
+- In Class6_Demo1, we created a chatbot with tool of search.
+- In Class6_Demo2, we created a chatbot with memory of conversation history.
+- In Class6_Demo3, we created a chatbot that can be interrupted for user to provide answer.
+- In Class6_Demo4, we created a chatbot that can leverage human interference.

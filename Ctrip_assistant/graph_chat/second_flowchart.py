@@ -69,7 +69,7 @@ memory = MemorySaver()
 #set checkpointer to be memory, interrupt before going to tools.
 graph = builder.compile(checkpointer=memory, interrupt_before=['sensitive_tools'])
 
-draw_graph(graph, 'graph3.png')
+draw_graph(graph, 'graph4.png')
 
 session_id = str(uuid.uuid4())
 

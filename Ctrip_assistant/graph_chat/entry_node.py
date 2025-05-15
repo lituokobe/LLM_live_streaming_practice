@@ -26,16 +26,11 @@ def create_entry_node(assistant_name: str, new_dialog_state) -> Callable:
         return {
             'messages': [
                 ToolMessage(
-                    content=f"现在助手是{assistant_name}。请回顾上述主助理与用户之间的对话。"
-                            f"用户的意图尚未满足。使用提供的工具协助用户。记住，您是{assistant_name}，"
-                            "并且预订、更新或其他操作未完成，直到成功调用了适当的工具。"
-                            "如果用户改变主意或需要帮助进行其他任务，请调用CompleteOrEscalate函数让主要的主助理接管。"
-                            "不要提及你是谁——仅作为助理的代理。",
-                    # content=f'Currently the assistant is {assistant_name}, please review above conversation between primary assistant and the user'
-                    #         f'User\'s request is not met yet. Use the provided tools to help user. Remember, you are {assistant_name}.'
-                    #         f'Booking, update, or other operations are not yet done until the appropriate tool is called.'
-                    #         f'If user changes mind or needs help for other tasks, please use function of CompleteOrEscalate to let primary assistant take over.'
-                    #         f'Do not mention your identity, only act as the agent of assistant',
+                    content=f'Currently the assistant is {assistant_name}, please review above conversation between primary assistant and the user'
+                            f'User\'s request is not met yet. Use the provided tools to help user. Remember, you are {assistant_name}.'
+                            f'Booking, update, or other operations are not yet done until the appropriate tool is called.'
+                            f'If user changes mind or needs help for other tasks, please use function of CompleteOrEscalate to let primary assistant take over.'
+                            f'Do not mention your identity, only act as the agent of assistant',
                     tool_call_id=tool_call_id,
                 )
             ],

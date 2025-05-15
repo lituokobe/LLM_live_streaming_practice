@@ -40,28 +40,19 @@ def update_dialog_stack(left: list[str], right: Optional[str]) -> list[str]:
 
 class State(TypedDict):
     """
-    定义一个结构化的字典类型，用于存储对话状态信息。
-    字段:
-        messages (list[AnyMessage]): 使用 Annotated 注解附加了 add_messages 功能的消息列表，
-                                     可能用于自动处理消息的某些方面。
-        user_info (str): 存储用户信息的字符串。
-        dialog_state (list[Literal["assistant", "update_flight", "book_car_rental",
-                                    "book_hotel", "book_excursion"]]): 对话状态栈，限定只能包含特定的几个值，
-                                    并使用 update_dialog_stack 函数来控制其更新逻辑。
+    Define a structured dictionary to store the conversation state information.
+    messages (list[AnyMessage]): list of messages that uses Annotated to deliver add_message.
+    it can auto-process certain aspects of the messages
+    user_info (str): string to store user information
+    dialog_state(list[Literal['assistant', 'update_flight', 'book_car_rental',
+    'book_hotel', 'book_excursion']]): dialog state stack, limited to include specific states,
+    and uses update_dialog_stack to control its logic of updating.
     """
-    # """
-    # Define a structured dictionary to store the conversation state information.
-    # messages (list[AnyMessage]): list of messages that uses Annotated to deliver add_message.
-    # it can auto-process certain aspects of the messages
-    # user_info (str): string to store user information
-    # dialog_state(list[Literal['assistant', 'update_flight', 'book_car_rental',
-    # 'book_hotel', 'book_excursion']]): dialog state stack, limited to include specific states,
-    # and uses update_dialog_stack to control its logic of updating.
-    # """
     # Literal ensures the element in the list must be one of the five elements
     messages: Annotated[list[AnyMessage], add_messages]
     user_info: str
     dialog_state: Annotated[
+        list[
         list[
             Literal[
                 'assistant',

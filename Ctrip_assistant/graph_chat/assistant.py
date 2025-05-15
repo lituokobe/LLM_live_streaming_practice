@@ -177,7 +177,7 @@ def create_assistant_node() -> CtripAssistant:
     """
     model = ChatOpenAI(  # openai的
         temperature=0,
-        model='gpt-4o',
+        model='gpt-4.1-nano-2025-04-14',
         base_url="https://api.openai.com/v1")
 
     # 创建主要助理使用的提示模板
